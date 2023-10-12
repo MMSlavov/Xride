@@ -3,35 +3,43 @@
 <MApp>
     <MAppBar App>
         <MAppBarNavIcon @onclick="() => _drawer = !_drawer"></MAppBarNavIcon>
-        <MToolbarTitle>Xride</MToolbarTitle>
+        <MToolbarTitle>xRide</MToolbarTitle>
         <MSpacer></MSpacer>
         <MButton Text Color="primary" Target="_blank" Href="https://docs.masastack.com/blazor/introduction/why-masa-blazor">About</MButton>
     </MAppBar>
 
-    <MNavigationDrawer App @bind-Value="_drawer">
-        <MList Nav Routable>
-            <MListItem Href="/" ActiveClass="primary--text">
+        <MNavigationDrawer App @bind-Value="_drawer" Class="drawer-container" ActiveClass="drawer-container">
+        <MList Nav Routable class="drawer-list">
+            <MListItem Href="/my-trips" ActiveClass="list-item" Class="list-item">
                 <MListItemIcon>
-                    <MIcon>mdi-home</MIcon>
+                    <MIcon>mdi-car-back</MIcon>
                 </MListItemIcon>
                 <MListItemContent>
-                    <MListItemTitle>Home</MListItemTitle>
+                    <MListItemTitle>My trips</MListItemTitle>
                 </MListItemContent>
             </MListItem>
-            <MListItem Href="/counter" ActiveClass="primary--text">
+            <MListItem Href="/all-trips" ActiveClass="primary--text">
                 <MListItemIcon>
-                    <MIcon>mdi-plus</MIcon>
+                    <MIcon>mdi-car-multiple</MIcon>
                 </MListItemIcon>
                 <MListItemContent>
-                    <MListItemTitle>Counter</MListItemTitle>
+                    <MListItemTitle>All trips</MListItemTitle>
                 </MListItemContent>
             </MListItem>
-            <MListItem Href="/fetchdata" ActiveClass="primary--text">
+            <MListItem Href="/notifications" ActiveClass="primary--text">
                 <MListItemIcon>
-                    <MIcon>mdi-list-box</MIcon>
+                    <MIcon>mdi-bell-ring</MIcon>
                 </MListItemIcon>
                 <MListItemContent>
-                    <MListItemTitle>Fetch data</MListItemTitle>
+                    <MListItemTitle>Notifications</MListItemTitle>
+                </MListItemContent>
+            </MListItem>
+            <MListItem Href="/my-profile" ActiveClass="primary--text" Class="list-item">
+                <MListItemIcon>
+                    <MIcon>mdi-account-circle</MIcon>
+                </MListItemIcon>
+                <MListItemContent>
+                    <MListItemTitle>My Profile</MListItemTitle>
                 </MListItemContent>
             </MListItem>
         </MList>
