@@ -1,0 +1,123 @@
+{
+    "buildInfo": {
+        "rustc": {
+            "version": "1.74.0-nightly",
+            "commitHash": "37390d65636dd67e263753a3c04fbc60dcc4348e",
+            "commitDate": "2023-09-24",
+            "channel": "Nightly",
+            "short": "rustc 1.74.0-nightly (37390d656 2023-09-24)"
+        },
+        "contractCrate": {
+            "name": "x-ride",
+            "version": "0.0.0"
+        },
+        "framework": {
+            "name": "multiversx-sc",
+            "version": "0.43.4"
+        }
+    },
+    "docs": [
+        "An empty contract. To be used as a template when starting a new contract from scratch."
+    ],
+    "name": "XRide",
+    "constructor": {
+        "inputs": [],
+        "outputs": []
+    },
+    "endpoints": [
+        {
+            "name": "register_ride",
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "car_details",
+                    "type": "bytes"
+                },
+                {
+                    "name": "cost",
+                    "type": "BigUint"
+                },
+                {
+                    "name": "timestamp",
+                    "type": "i64"
+                },
+                {
+                    "name": "ride_start",
+                    "type": "i64"
+                },
+                {
+                    "name": "free_seats",
+                    "type": "u8"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "bytes"
+                }
+            ]
+        },
+        {
+            "name": "book_ride",
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "ride_id",
+                    "type": "bytes"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "getRideStorage",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "variadic<multi<bytes,Ride>>",
+                    "multi_result": true
+                }
+            ]
+        }
+    ],
+    "events": [],
+    "hasCallback": false,
+    "types": {
+        "Ride": {
+            "type": "struct",
+            "fields": [
+                {
+                    "name": "driver",
+                    "type": "Address"
+                },
+                {
+                    "name": "car_details",
+                    "type": "bytes"
+                },
+                {
+                    "name": "cost",
+                    "type": "BigUint"
+                },
+                {
+                    "name": "free_seats",
+                    "type": "u8"
+                },
+                {
+                    "name": "timestamp",
+                    "type": "i64"
+                },
+                {
+                    "name": "ride_start",
+                    "type": "i64"
+                },
+                {
+                    "name": "ride_end",
+                    "type": "Option<i64>"
+                },
+                {
+                    "name": "passengers",
+                    "type": "List<Address>"
+                }
+            ]
+        }
+    }
+}

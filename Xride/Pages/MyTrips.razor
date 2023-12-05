@@ -1,0 +1,26 @@
+﻿@page "/my-trips"
+@inject IJSRuntime jsRuntime
+
+<PageTitle>My trips</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<MButton Elevation="2" @onclick="Connect">
+    Connect
+</MButton>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    private async void Connect()
+    {
+        //_web3ModalInterop.OpenModal();
+        Uri uri = new Uri("https://www.microsoft.com");
+        //await Browser.Default.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
+    }
+}

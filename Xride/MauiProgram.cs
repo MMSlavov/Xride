@@ -1,26 +1,38 @@
-﻿using Xride.Shared;
+﻿using Microsoft.Extensions.Logging;
+using xRide.Core;
 
-namespace Xride;
-
-public static class MauiProgram
+namespace xRide
 {
-    public static MauiApp CreateMauiApp()
+    public static class MauiProgram
     {
-        var builder = MauiApp.CreateBuilder();
-        builder
-            .UseMauiApp<App>()
-            .ConfigureFonts(fonts =>
+        public static MauiApp CreateMauiApp()
+        {
+            var builder = MauiApp.CreateBuilder();
+            builder
+                .UseMauiApp<App>()
+                .ConfigureFonts(fonts =>
+                {
+                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                });
+
+            builder.Services.AddMauiBlazorWebView();
+
+#if DEBUG
+            builder.Services.AddBlazorWebViewDeveloperTools();
+            builder.Logging.AddDebug();
+#endif
+
+            builder.Services.AddMasaBlazor(options =>
             {
-                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                options.ConfigureTheme(theme =>
+                {
+                    theme.Dark = true;
+                });
             });
 
-        builder.Services.AddMauiBlazorWebView();
-        builder.Services.AddMasaBlazor();
+            builder.Services.AddSingleton<MXService>();
 
-
-        builder.Services.AddSingleton<MXService>();
-        builder.Services.AddSingleton<WeatherForecastService>();
-
-        return builder.Build();
+            return builder.Build();
+        }
     }
 }

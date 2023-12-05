@@ -1,0 +1,75 @@
+﻿@inject MasaBlazor MasaBlazor
+@inherits LayoutComponentBase
+
+<MApp>
+    <MAppBar App>
+        <MAppBarNavIcon @onclick="() => _drawer = !_drawer"></MAppBarNavIcon>
+        <MToolbarTitle>xRide</MToolbarTitle>
+    </MAppBar>
+
+    <MNavigationDrawer App @bind-Value="_drawer" Class="drawer-container" ActiveClass="drawer-container">
+         <MList Nav Routable class="drawer-list">
+             <MListItem Href="/my-trips" ActiveClass="list-item" Class="list-item">
+                 <MListItemIcon>
+                     <MIcon>mdi-car-back</MIcon>
+                 </MListItemIcon>
+                 <MListItemContent>
+                     <MListItemTitle>My trips</MListItemTitle>
+                 </MListItemContent>
+             </MListItem>
+             <MListItem Href="/all-trips" ActiveClass="primary--text">
+                 <MListItemIcon>
+                     <MIcon>mdi-car-multiple</MIcon>
+                 </MListItemIcon>
+                 <MListItemContent>
+                     <MListItemTitle>All trips</MListItemTitle>
+                 </MListItemContent>
+             </MListItem>
+             <MListItem Href="/notifications" ActiveClass="primary--text">
+                 <MListItemIcon>
+                     <MIcon>mdi-bell-ring</MIcon>
+                 </MListItemIcon>
+                 <MListItemContent>
+                     <MListItemTitle>Notifications</MListItemTitle>
+                 </MListItemContent>
+             </MListItem>
+             <MListItem Href="/my-profile" ActiveClass="primary--text" Class="list-item">
+                 <MListItemIcon>
+                     <MIcon>mdi-account-circle</MIcon>
+                 </MListItemIcon>
+                 <MListItemContent>
+                     <MListItemTitle>My Profile</MListItemTitle>
+                 </MListItemContent>
+             </MListItem>
+             <MListItem>
+                 <MSwitch Value="_isDark" TValue="bool" ValueChanged="IsDarkChanged" Label="@(_isDark ? "Dark" : "Light")" />
+             </MListItem>
+         </MList>
+     </MNavigationDrawer>
+
+     <MMain>
+         <MContainer Fluid>
+            <MErrorHandler>
+                @Body
+            </MErrorHandler>
+        </MContainer>
+    </MMain>
+</MApp>
+
+@code {
+
+    private bool? _drawer;
+    bool _isDark;
+
+    protected override Task OnInitializedAsync()
+    {
+        _isDark = MasaBlazor?.Theme?.Dark ?? false;
+        return base.OnInitializedAsync();
+    }
+
+    private void IsDarkChanged(bool isDark)
+    {
+        _isDark = isDark;
+        MasaBlazor.ToggleTheme();
+    }
+}

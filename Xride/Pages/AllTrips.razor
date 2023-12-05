@@ -1,0 +1,54 @@
+﻿@page "/all-trips"
+@inject MXService MXService
+
+<PageTitle>All trips</PageTitle>
+
+<h1>All trips works!</h1>
+
+@if (_forecasts == null)
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else
+{
+    <MDataTable Headers="_headers" Items="_forecasts" ItemsPerPage="5">
+        <ItemColContent>
+            @context.Value
+        </ItemColContent>
+    </MDataTable>
+}
+
+@code {
+
+    private List<DataTableHeader<MXAccount>> _headers = new()
+    {
+        new() { Text = "Balance", Value = nameof(MXAccount.Balance) },
+    };
+
+    private MXAccount[] _forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _forecasts = await MXService.GetBalance();
+
+        await MXService.GetRides(await LoadAbi());
+    }
+
+    async Task<string> LoadAbi()
+    {
+        try
+        {
+            using var stream = await FileSystem.OpenAppPackageFileAsync("x-ride/x-ride.abi.json");
+            using var reader = new StreamReader(stream);
+
+            return reader.ReadToEnd();
+        }
+        catch (Exception)
+        {
+            return string.Empty;
+        }
+
+    }
+}
